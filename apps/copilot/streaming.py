@@ -5,8 +5,14 @@ from typing import List, Dict, Any, Literal
 import json
 from lib import AgentContext, PromptContext, ToolContext, ChatContext
 
-openai_client = OpenAI()
-MODEL_NAME = "gpt-4.1"  # OpenAI model name
+MODEL_NAME = "${API_MODEL}"  # OpenAI model name
+openai_client = new OpenAI({
+  baseURL: "https://openrouter.ai/api/v1",
+  apiKey: "${API_KEY_REF}",
+  defaultHeaders: {
+    ${getHeaderLines().join('\n        ')}
+  },
+})
 
 class UserMessage(BaseModel):
     role: Literal["user"]
