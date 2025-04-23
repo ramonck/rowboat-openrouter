@@ -93,11 +93,11 @@ There are 2 ways to integrate with the agents you create in Rowboat
    print(response.messages[-1].content)
    ```
 
-3. Variables
+3. Set these build variables when you build the images
    You can set the variables on build.
-   # API_KEY_REF
+   # OPENROUTER_API_KEY
    ==>> OpenRouter key
-   # API_MODEL
+   # OPENROUTER_API_MODEL
    ==>> your OpenRouter model
 
 Refer to [Docs](https://docs.rowboatlabs.com/) to learn how to start building agents with Rowboat.
