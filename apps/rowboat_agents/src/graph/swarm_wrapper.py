@@ -47,7 +47,7 @@ async def mock_tool(tool_name: str, args: str, description: str, mock_instructio
         ]
 
         print(f"Generating simulated response for tool: {tool_name}")
-        response_content = generate_openai_output(messages, output_type='text', model="gpt-4o")
+        response_content = generate_openai_output(messages, output_type='text', model=os.environ.get("OPENROUTER_API_MODEL"))
         return response_content
     except Exception as e:
         logger.error(f"Error in mock_tool: {str(e)}")

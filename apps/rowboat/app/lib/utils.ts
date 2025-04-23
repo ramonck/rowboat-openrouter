@@ -118,13 +118,32 @@ The current date is {{date}}.
         })));
     // console.log(prompt);
 
-    const { object } = await generateObject({
-        model: openai("gpt-4o"),
-        prompt: prompt,
-        schema: z.object({
-            result: z.any(),
-        }),
-    });
+    const openrouter = new OpenAI({
+        apiKey: process.env.OPENROUTER_API_KEY, // Replace with your OpenRouter API key
+        baseURL: 'https://openrouter.ai/api/v1',
+      });
+      
+      const { object } = await openrouter.chat.completions.create({
+        model: process.env.OPENROUTER_API_MODEL, // Specify the model you want to use on OpenRouter
+        messages: [
+          { role: "user", content: prompt },
+        ],
+        functions: [
+          {
+            name: "generateObject",
+            description: "Generates an object based on the user's prompt and schema.",
+            parameters: {
+              type: "object",
+              properties: {
+                result: {}, // Define the schema for your result object here
+              },
+              required: ["result"],
+            },
+          },
+        ],
+        function_call: { name: "generateObject" },
+      });
+      
 
-    return JSON.stringify(object);
+    return JSON.parse(object.choices[0].message.function_call.arguments).result;
 }

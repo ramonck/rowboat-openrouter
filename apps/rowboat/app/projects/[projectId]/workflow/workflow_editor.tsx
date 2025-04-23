@@ -263,7 +263,7 @@ function reducer(state: State, action: Action): State {
                                 description: "",
                                 disabled: false,
                                 instructions: "",
-                                model: "gpt-4o",
+                                model: process.env.OPENROUTER_API_MODEL,
                                 locked: false,
                                 toggleAble: true,
                                 ragReturnType: "chunks",

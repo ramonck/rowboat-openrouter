@@ -95,7 +95,7 @@ def classify_hallucination(context: str, assistant_response: str, chat_history: 
     response = generate_llm_output(messages, model)
     return response
 
-def post_process_response(messages: list, post_processing_agent_name: str, post_process_instructions: str, style_prompt: str = None, context: str = None, model: str = "gpt-4o", tokens_used: dict = {}, last_agent: Agent = None) -> dict:
+def post_process_response(messages: list, post_processing_agent_name: str, post_process_instructions: str, style_prompt: str = None, context: str = None, model: str = os.environ.get("OPENROUTER_API_MODEL"), tokens_used: dict = {}, last_agent: Agent = None) -> dict:
     agent_instructions = last_agent.instructions
     agent_history = last_agent.history
     # agent_instructions = ''

@@ -20,10 +20,13 @@ qdrant_client = QdrantClient(
     api_key=os.environ.get("QDRANT_API_KEY") or None
 )
 # Initialize OpenAI client
-client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.environ.get("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1"
+)
 
-# Define embedding model
-embedding_model = "text-embedding-3-small"
+# Define embedding model - ensure this is a model supported by a provider on OpenRouter
+embedding_model = "openai/text-embedding-3-small"  # Explicitly prefix with "openai/"
 
 async def embed(model: str, value: str) -> dict:
     """

@@ -53,14 +53,15 @@ def get_api_key(key_name):
         raise ValueError(f"{key_name} not found. Did you set it in the .env file?")
     return api_key
 
-openai_client = OpenAI(
-    api_key=get_api_key("OPENAI_API_KEY")
-)
+openai_client = new OpenAI({
+  baseURL: "https://openrouter.ai/api/v1",
+  apiKey: os.environ.get("OPENROUTER_API_KEY")
+})
 
-def generate_gpt4o_output_from_multi_turn_conv(messages, output_type='json', model="gpt-4o"):
+def generate_gpt4o_output_from_multi_turn_conv(messages, output_type='json', model=os.environ.get("OPENROUTER_API_MODEL")):
     return generate_openai_output(messages, output_type, model)
 
-def generate_openai_output(messages, output_type='not_json', model="gpt-4o", return_completion=False):
+def generate_openai_output(messages, output_type='not_json', model=os.environ.get("OPENROUTER_API_MODEL"), return_completion=False):
     try:
         if output_type == 'json':
             chat_completion = openai_client.chat.completions.create(

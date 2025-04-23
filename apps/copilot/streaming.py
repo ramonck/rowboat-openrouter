@@ -5,13 +5,10 @@ from typing import List, Dict, Any, Literal
 import json
 from lib import AgentContext, PromptContext, ToolContext, ChatContext
 
-MODEL_NAME = "${API_MODEL}"  # OpenAI model name
+MODEL_NAME = os.environ.get("OPENROUTER_API_MODEL")  # OpenAI model name
 openai_client = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
-  apiKey: "${API_KEY_REF}",
-  defaultHeaders: {
-    ${getHeaderLines().join('\n        ')}
-  },
+  apiKey: os.environ.get("OPENROUTER_API_KEY")
 })
 
 class UserMessage(BaseModel):
